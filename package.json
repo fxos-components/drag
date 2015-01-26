@@ -2,7 +2,7 @@
   "name": "drag",
   "version": "0.1.1",
   "description": "",
-  "main": "index.js",
+  "main": "drag.js",
   "scripts": {
     "install": "bower install",
     "test": "./node_modules/karma/bin/karma start test/karma.conf.js --single-run",

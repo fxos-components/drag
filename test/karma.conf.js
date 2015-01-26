@@ -20,7 +20,6 @@ module.exports = function(config) {
     },
 
     files: [
-      'bower_components/gaia-component/gaia-component.js',
       'drag.js',
       'test/style.css',
       'test/test.js'

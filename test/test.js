@@ -152,11 +152,15 @@ suite('Drag', function() {
 
       // Drag scenario
       touch(this.handle,'touchstart', x, y);
-      touch(window,'touchmove', x+=5, y);
-      this.sinon.clock.tick(5);
-      touch(window,'touchmove', x+=5, y);
-      this.sinon.clock.tick(5);
-      touch(window,'touchmove', x+=5, y);
+      touch(window,'touchmove', x+=10, y);
+      this.sinon.clock.tick(50);
+      touch(window,'touchmove', x+=10, y);
+      this.sinon.clock.tick(50);
+      touch(window,'touchmove', x+=10, y);
+      this.sinon.clock.tick(50);
+      touch(window,'touchmove', x+=10, y);
+      this.sinon.clock.tick(50);
+      touch(window,'touchmove', x+=10, y);
       this.sinon.clock.tick(5);
       touch(window,'touchend', x, y);
 
