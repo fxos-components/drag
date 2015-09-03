@@ -74,6 +74,78 @@ suite('Drag', function() {
       assert.equal(style.transform, 'translate(300px, 0px)');
       touch(window,'touchend', x, y);
     });
+
+    test('it doesn\'t move when disabled', function() {
+      var style = this.handle.style;
+      var x = this.handle.offsetLeft + 10;
+      var y = this.handle.offsetTop;
+
+      this.drag.translate(0, 0);
+      this.drag.disable();
+      touch(this.handle,'touchstart', x, y);
+      touch(window,'touchmove', x, y);
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchend', x, y);
+    });
+
+    test('it resets when disabled while dragging', function() {
+      var style = this.handle.style;
+      var x = this.handle.offsetLeft + 10;
+      var y = this.handle.offsetTop;
+
+      touch(this.handle,'touchstart', x, y);
+      touch(window,'touchmove', x, y);
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(5px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(10px, 0px)');
+      this.drag.disable();
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchend', x, y);
+    });
+
+    test('it moves with the pointer when re-enabled', function() {
+      var style = this.handle.style;
+      var x = this.handle.offsetLeft + 10;
+      var y = this.handle.offsetTop;
+
+      this.drag.translate(0, 0);
+      this.drag.disable();
+      touch(this.handle,'touchstart', x, y);
+      touch(window,'touchmove', x, y);
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(0px, 0px)');
+      touch(window,'touchend', x, y);
+
+      this.drag.enable();
+      touch(this.handle,'touchstart', x, y);
+      touch(window,'touchmove', x, y);
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(5px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(10px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(15px, 0px)');
+      touch(window,'touchmove', x+=5, y);
+      assert.equal(style.transform, 'translate(20px, 0px)');
+      touch(window,'touchend', x, y);
+    });
   });
 
   suite('events', function() {
