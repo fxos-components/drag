@@ -60,6 +60,7 @@ function Drag(config) {
   debug('init', config);
   this.config(config);
   this.dragging = false;
+  this.enabled = true;
   this.setupEvents();
 }
 
@@ -93,6 +94,29 @@ Drag.prototype.setupEvents = function() {
 };
 
 /**
+ * Enables dragging.
+ *
+ * @public
+ */
+Drag.prototype.enable = function() {
+  this.enabled = true;
+};
+
+/**
+ * Disables dragging.
+ *
+ * @public
+ */
+Drag.prototype.disable = function() {
+  this.enabled = false;
+
+  if (this.point) {
+    this.translate(this.startPosition.x, this.startPosition.y);
+    this.onPointerEnd();
+  }
+};
+
+/**
  * Adds events listeners and updates
  * the `dragging` flag.
  *
@@ -100,10 +124,20 @@ Drag.prototype.setupEvents = function() {
  * @private
  */
 Drag.prototype.onPointerStart = function(e) {
+  if (!this.enabled) {
+    return;
+  }
+
   debug('pointer start', e);
   this.point = getPoint(e);
+  this.startPosition = {
+    x: this.handle.x,
+    y: this.handle.y
+  };
+  
   addEventListener(pointer.move, this.onPointerMove);
   addEventListener(pointer.up, this.onPointerEnd);
+  
   clearTimeout(this.timeout);
   this.timeout = setTimeout(() => this.dragging = true, 200);
 };
@@ -117,11 +151,18 @@ Drag.prototype.onPointerStart = function(e) {
  */
 Drag.prototype.onPointerEnd = function(e) {
   debug('pointer end', e);
+  this.point = null;
+  this.startPosition = null;
+
   clearTimeout(this.timeout);
   this.timeout = setTimeout(() => this.dragging = false);
+
   removeEventListener(pointer.move, this.onPointerMove);
   removeEventListener(pointer.up, this.onPointerEnd);
-  this.dispatch('ended', e);
+
+  if (this.enabled) {
+    this.dispatch('ended', e);
+  }
 };
 
 /**
