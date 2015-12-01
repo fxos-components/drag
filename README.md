@@ -1,1 +1,1 @@
-# drag [![](https://travis-ci.org/gaia-components/drag.svg)](https://travis-ci.org/gaia-components/drag)
+# drag [![](https://travis-ci.org/fxos-components/drag.svg)](https://travis-ci.org/fxos-components/drag)

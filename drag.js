@@ -217,10 +217,6 @@ Drag.prototype.translate = function(x, y) {
   debug('translate', x, y);
   var position = this.clamp(this.normalize(x, y));
   var translate = 'translate(' + position.x + 'px,' + position.y + 'px)';
-  var ratio = {
-    x: (position.x / this.max.x) || 0,
-    y: (position.y / this.max.y) || 0
-  };
 
   // Set the transform to move the handle
   this.handle.el.style.transform = translate;
@@ -268,7 +264,7 @@ Drag.prototype.normalize = function(x, y) {
   return {
     x: typeof x == 'string' ? (Number(x) * this.max.x) : x,
     y: typeof y == 'string' ? (Number(y) * this.max.y) : y
-  }
+  };
 };
 
 /**
@@ -279,7 +275,7 @@ Drag.prototype.normalize = function(x, y) {
 Drag.prototype.snap = function() {
   debug('snap');
   var edges = this.getClosestEdges();
-  this.transition(edges.x, edges.y)
+  this.transition(edges.x, edges.y);
   this.dispatch('snapped', edges);
 };
 
@@ -324,7 +320,7 @@ Drag.prototype.getDuration = function(from, to) {
  */
 Drag.prototype.setDuration = function(ms) {
   this.handle.el.style.transitionDuration = ms + 'ms';
-}
+};
 
 /**
  * Get the closest x and y edges.
@@ -362,7 +358,7 @@ Drag.prototype.dispatch = function(name, detail) {
  */
 Drag.prototype.on = function(name, fn) {
   this.container.el.addEventListener('drag' + name, fn);
-}
+};
 
 /**
  * Remove and event listener.
@@ -372,7 +368,7 @@ Drag.prototype.on = function(name, fn) {
  */
 Drag.prototype.off = function(name, fn) {
   this.container.el.removeEventListener('drag' + name, fn);
-}
+};
 
 /**
  * Utils
