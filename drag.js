@@ -134,10 +134,10 @@ Drag.prototype.onPointerStart = function(e) {
     x: this.handle.x,
     y: this.handle.y
   };
-  
+
   addEventListener(pointer.move, this.onPointerMove);
   addEventListener(pointer.up, this.onPointerEnd);
-  
+
   clearTimeout(this.timeout);
   this.timeout = setTimeout(() => this.dragging = true, 200);
 };
@@ -378,7 +378,4 @@ function getPoint(e) {
   return ~e.type.indexOf('mouse') ? e : e.touches[0];
 }
 
-});})((function(n,w){'use strict';return typeof define=='function'&&define.amd?
-define:typeof module=='object'?function(c){c(require,exports,module);}:
-function(c){var m={exports:{}},r=function(n){return w[n];};
-w[n]=c(r,m.exports,m)||m.exports;};})('drag',this));
+});})((function(n,w){'use strict';return typeof define=='function'&&define.amd?define:typeof module=='object'?function(c){c(require,exports,module);}:function(c){var m={exports:{}},r=function(n){return w[n];};w[n]=c(r,m.exports,m)||m.exports;};})('drag',this));/*jshint ignore:line*/

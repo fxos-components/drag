@@ -28,10 +28,6 @@ module.exports = function(config) {
       'drag.js',
       'test/style.css',
       'test/test.js'
-    ],
-
-    proxies: {
-      '/bower_components/': 'http://localhost:9876/base/bower_components/'
-    }
+    ]
   });
 };
